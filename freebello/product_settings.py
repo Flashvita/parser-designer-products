@@ -10,18 +10,17 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
 
-
-
-ALLOWED_HOSTS = ['*']  # '62.113.104.27', '127.0.0.1']
+ALLOWED_HOSTS = ['62.113.104.27']
 
 DEBUG = str(os.getenv('DEBUG')).lower() == 'true' if os.getenv('DEBUG') else False
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     os.getenv('CORS_ORIGIN_DOMAIN'),
 )
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+
 
 DOMAIN_URL = os.getenv('DOMAIN_URL')
 STATIC_URL = '/data/'
@@ -38,10 +37,8 @@ SIMPLE_JWT = {
     'USER_AUTHENTICATION_RULE': 'auth.backend.user_authentication_rule',
 }
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -53,7 +50,14 @@ DATABASES = {
     }
 }
 
+RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY', "")
+RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY', "")
 
+# Yandex S3 Object Storage
+S3_OBJECT_STORAGE_ENDPOINT_URL = os.getenv('S3_OBJECT_STORAGE_ENDPOINT_URL', 'https://storage.yandexcloud.net')
+S3_OBJECT_STORAGE_ACCESS_KEY_ID = os.getenv('S3_OBJECT_STORAGE_ACCESS_KEY_ID', 'access key')
+S3_OBJECT_STORAGE_SECRET_ACCESS_KEY = os.getenv('S3_OBJECT_STORAGE_SECRET_ACCESS_KEY', 'secret key')
+S3_OBJECT_STORAGE_BUCKET_NAME = os.getenv('S3_OBJECT_STORAGE_BUCKET_NAME', 'freebello-test')
 
 COUNTRIES = (
     ('AF', 'AFGHANISTAN'),
@@ -295,12 +299,4 @@ COUNTRIES = (
 )
 
 
-RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY', "")
-RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY', "")
 
-
-# Yandex S3 Object Storage
-S3_OBJECT_STORAGE_ENDPOINT_URL = os.getenv('S3_OBJECT_STORAGE_ENDPOINT_URL', 'https://storage.yandexcloud.net')
-S3_OBJECT_STORAGE_ACCESS_KEY_ID = os.getenv('S3_OBJECT_STORAGE_ACCESS_KEY_ID', 'access key')
-S3_OBJECT_STORAGE_SECRET_ACCESS_KEY = os.getenv('S3_OBJECT_STORAGE_SECRET_ACCESS_KEY', 'secret key')
-S3_OBJECT_STORAGE_BUCKET_NAME = os.getenv('S3_OBJECT_STORAGE_BUCKET_NAME', 'freebello-test')
